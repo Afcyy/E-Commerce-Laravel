@@ -13,4 +13,8 @@ class Product extends Model
     public function link(){
         return route('shop.show', $this->slug);
     }
+
+    public function scopeMightAlsoLike($query){
+        return $query->inRandomOrder()->take(4);
+    }
 }
