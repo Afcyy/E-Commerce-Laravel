@@ -10,7 +10,6 @@ class ConfirmationController extends Controller
         if(! session()->has('success_message')) {
             return(redirect('/'));
         }
-
         return view('thankyou');
     }
 }
