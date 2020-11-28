@@ -1,0 +1,37 @@
+.pagination {
+  li {
+    display: inline-block;
+    float: left;
+    font-size: 1.1rem;
+    color: #535353;
+    border: 1px solid #ddd;
+
+    // Drop overlapping borders
+    &:nth-child(1n + 2) {
+      border-left: none;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    &:hover {
+      background-color: #ededed;
+    }
+  }
+
+  // Spans are used for the unavailable links in pagination
+  span {
+    cursor: not-allowed;
+  }
+
+  a, span {
+    display: block;
+    padding: 3px 12px;
+  }
+
+  .active {
+    background-color: #535353;
+    color: #fff;
+    border-color: #000;
+  }
+}

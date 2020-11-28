@@ -12,77 +12,29 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        \App\Product::create([
-            'name' => 'Laptop 1',
-            'slug' => 'laptop-1',
-            'details' => '13 inch, 1TB SSD, 16GB RAM',
-            'price' => 149999,
-            'description' => 'Lorem ipsum dolot sit amet, consectetur adipisicing elit, Upsum temoribus iusto ipsam seprios voluptas unde aspernatur praesentium in',
-        ]);
+        for($i = 1; $i <= 30; $i++){
+            \App\Product::create([
+                'name' => 'Laptop ' . $i,
+                'slug' => 'laptop-' . $i,
+                'details' => [13,14,15][array_rand([13,14,15])] . ' inch ' . [1,2,3][array_rand([1,2,3])] . ' TB SSD, ' . [8,16,32][array_rand([3,16,32])] . 'GB RAM',
+                'price' => rand(149999,249999),
+                'description' => 'Lorem' . $i . 'ipsum dolot sit amet, consectetur adipisicing elit, Upsum temoribus iusto ipsam seprios voluptas unde aspernatur praesentium in',
+            ])->categories()->attach(1);
+        }
 
-        \App\Product::create([
-            'name' => 'Laptop 2',
-            'slug' => 'laptop-2',
-            'details' => '13 inch, 1TB SSD, 16GB RAM',
-            'price' => 149999,
-            'description' => 'Lorem ipsum dolot sit amet, consectetur adipisicing elit, Upsum temoribus iusto ipsam seprios voluptas unde aspernatur praesentium in',
-        ]);
+        $product = \App\Product::find(1);
+        $product->categories()->attach(2);
 
-        \App\Product::create([
-            'name' => 'Laptop 3',
-            'slug' => 'laptop-3',
-            'details' => '13 inch, 1TB SSD, 16GB RAM',
-            'price' => 149999,
-            'description' => 'Lorem ipsum dolot sit amet, consectetur adipisicing elit, Upsum temoribus iusto ipsam seprios voluptas unde aspernatur praesentium in',
-        ]);
+        for($i = 1; $i <= 9; $i++){
+            \App\Product::create([
+                'name' => 'iPhone ' . $i,
+                'slug' => 'iphone-' . $i,
+                'details' => [4,5,6][array_rand([4,5,6])] . ' inch ' . [64,128,256][array_rand([64,128,256])] . ' GB, ' . [2,3,4][array_rand([2,3,4])] . 'GB RAM',
+                'price' => rand(109999,209999),
+                'description' => 'Lorem' . $i . 'ipsum dolot sit amet, consectetur adipisicing elit, Upsum temoribus iusto ipsam seprios voluptas unde aspernatur praesentium in',
+            ])->categories()->attach(3);
+        }
 
-        \App\Product::create([
-            'name' => 'Laptop 4',
-            'slug' => 'laptop-4',
-            'details' => '13 inch, 1TB SSD, 16GB RAM',
-            'price' => 149999,
-            'description' => 'Lorem ipsum dolot sit amet, consectetur adipisicing elit, Upsum temoribus iusto ipsam seprios voluptas unde aspernatur praesentium in',
-        ]);
-
-        \App\Product::create([
-            'name' => 'Laptop 5',
-            'slug' => 'laptop-5',
-            'details' => '13 inch, 1TB SSD, 16GB RAM',
-            'price' => 149999,
-            'description' => 'Lorem ipsum dolot sit amet, consectetur adipisicing elit, Upsum temoribus iusto ipsam seprios voluptas unde aspernatur praesentium in',
-        ]);
-
-        \App\Product::create([
-            'name' => 'Laptop 6',
-            'slug' => 'laptop-6',
-            'details' => '13 inch, 1TB SSD, 16GB RAM',
-            'price' => 149999,
-            'description' => 'Lorem ipsum dolot sit amet, consectetur adipisicing elit, Upsum temoribus iusto ipsam seprios voluptas unde aspernatur praesentium in',
-        ]);
-
-        \App\Product::create([
-            'name' => 'Laptop 7',
-            'slug' => 'laptop-7',
-            'details' => '13 inch, 1TB SSD, 16GB RAM',
-            'price' => 149999,
-            'description' => 'Lorem ipsum dolot sit amet, consectetur adipisicing elit, Upsum temoribus iusto ipsam seprios voluptas unde aspernatur praesentium in',
-        ]);
-
-        \App\Product::create([
-            'name' => 'Laptop 8',
-            'slug' => 'laptop-8',
-            'details' => '13 inch, 1TB SSD, 16GB RAM',
-            'price' => 149999,
-            'description' => 'Lorem ipsum dolot sit amet, consectetur adipisicing elit, Upsum temoribus iusto ipsam seprios voluptas unde aspernatur praesentium in',
-        ]);
-
-        \App\Product::create([
-            'name' => 'Laptop 9',
-            'slug' => 'laptop-9',
-            'details' => '13 inch, 1TB SSD, 16GB RAM',
-            'price' => 149999,
-            'description' => 'Lorem ipsum dolot sit amet, consectetur adipisicing elit, Upsum temoribus iusto ipsam seprios voluptas unde aspernatur praesentium in',
-        ]);
 
     }
 }
