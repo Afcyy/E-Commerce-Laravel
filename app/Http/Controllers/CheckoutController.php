@@ -18,7 +18,13 @@ class CheckoutController extends Controller
      */
     public function index()
     {
-        return view('checkout');
+
+        return view('checkout')->with([
+            'discount' => $this->getNumbers()->get('discount'),
+            'newSubtotal' => $this->getNumbers()->get('newSubtotal'),
+            'newTax' => $this->getNumbers()->get('newTax'),
+            'newTotal' => $this->getNumbers()->get('newTotal'),
+        ]);
     }
 
     /**
@@ -46,7 +52,7 @@ class CheckoutController extends Controller
         try {
             $stripe = Stripe::make(env("STRIPE_SECRET"));
             $charge = $stripe->charges()->create([
-                'amount' => Cart::total() / 100,
+                'amount' => $this->getNumbers()->get('newTotal') / 100,
                 'currency' => 'GEL',
                 'source' => $request->stripeToken,
                 'description' => 'Order',
@@ -54,10 +60,12 @@ class CheckoutController extends Controller
                 'metadata' => [
                     'contents' => $contents,
                     'quantity' => Cart::instance('default')->count(),
+                    'discount' => collect(session()->get('coupon'))->toJson(),
                 ],
             ]);
 
             Cart::instance('default')->destroy();
+            session()->forget('coupon');
 
             //SUCCESSFULL
             return redirect()->route('confirmation.index')->with('success_message','Order confirmed successfully');
@@ -109,5 +117,22 @@ class CheckoutController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function getNumbers()
+    {
+        $tax = config('cart.tax') / 100;
+        $discount = session()->get('coupon')['discount'] ?? 0;
+        $newSubtotal = (Cart::subtotal() - $discount);
+        $newTax = $newSubtotal * $tax;
+        $newTotal = $newSubtotal * (1 + $tax);
+
+        return collect([
+            'tax' => $tax,
+            'discount' => $discount,
+            'newSubtotal' => $newSubtotal,
+            'newTax' => $newTax,
+            'newTotal' => $newTotal,
+        ]);
     }
 }

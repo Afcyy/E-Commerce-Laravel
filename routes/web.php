@@ -18,10 +18,8 @@ Route::post('/cart/switchToSaveForLater/{product}', 'CartController@switchToSave
 Route::delete('/saveForLater/{product}', 'CartController@destroySavedForLater')->name('cart.destroySavedForLater');
 Route::post('/saveForLater/switchToCart/{product}', 'CartController@switchToCart')->name('cart.switchToCart');
 
-Route::get('empty', function () {
-    Cart::destroy();
-    Cart::instance('saveForLater')->destroy();
-});
+Route::post('/coupon', 'CouponsController@store')->name('coupons.store');
+Route::delete('/coupon', 'CouponsController@destroy')->name('coupons.destroy');
 
 Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
 Route::post('/checkout', 'CheckoutController@store')->name('checkout.store');
